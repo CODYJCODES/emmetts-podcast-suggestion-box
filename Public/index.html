@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suggestion Box</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Suggestion Box</h1>
+    <form id="suggestionForm">
+        <input type="text" id="suggestionInput" placeholder="Enter your suggestion">
+        <button type="submit" id="submitBtn">Submit</button>
+    </form>
+    <button id="toggleBtn">Show/Hide Suggestions</button>
+    <ul id="suggestionList" style="display:none;"></ul>
+
+    <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
