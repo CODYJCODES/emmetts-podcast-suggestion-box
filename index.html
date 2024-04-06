@@ -14,10 +14,7 @@
         <button onclick="showAllSuggestions()">Show All Suggestions</button>
         <div id="suggestions"></div>
     </div>
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
-        import { getDatabase, ref, push, set, onValue } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js";
-
+    <script>
         // Your Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyBwf8QvoCea5zKAt7brg4WR-lqRBOTnIzs",
@@ -30,13 +27,21 @@
         };
 
         // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                submitSuggestion();
+            }
+        }
 
         function submitSuggestion() {
             const suggestion = document.getElementById('suggestion').value.trim();
             if (suggestion !== '') {
-                set(ref(database, 'suggestions'), { suggestion: suggestion });
+                database.ref('suggestions').push().set({
+                    suggestion: suggestion
+                });
                 document.getElementById('suggestion').value = '';
                 alert('Suggestion submitted successfully!');
             } else {
@@ -46,25 +51,19 @@
 
         function showAllSuggestions() {
             const suggestionsDiv = document.getElementById('suggestions');
-            suggestionsDiv.innerHTML = '';
-            onValue(ref(database, 'suggestions'), (snapshot) => {
-                const data = snapshot.val();
-                if (data) {
-                    Object.values(data).forEach(suggestion => {
+            suggestionsDiv.innerHTML = ''; // Clear previous suggestions
+            database.ref('suggestions').once('value', (snapshot) => {
+                if (snapshot.exists()) {
+                    snapshot.forEach((childSnapshot) => {
+                        const suggestion = childSnapshot.val().suggestion;
                         const suggestionElement = document.createElement('p');
-                        suggestionElement.textContent = suggestion.suggestion;
+                        suggestionElement.textContent = suggestion;
                         suggestionsDiv.appendChild(suggestionElement);
                     });
                 } else {
                     suggestionsDiv.textContent = 'No suggestions available.';
                 }
             });
-        }
-
-        function handleKeyPress(event) {
-            if (event.key === 'Enter') {
-                submitSuggestion();
-            }
         }
     </script>
 </body>
