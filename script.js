@@ -1,15 +1,17 @@
+// Your Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyBwf8QvoCea5zKAt7brg4WR-lqRBOTnIzs",
+    apiKey: "YOUR_API_KEY",
     authDomain: "emmett-s-podcast-thing.firebaseapp.com",
     projectId: "emmett-s-podcast-thing",
     storageBucket: "emmett-s-podcast-thing.appspot.com",
     databaseURL: "https://emmett-s-podcast-thing-default-rtdb.firebaseio.com",
     messagingSenderId: "16094210024",
     appId: "1:16094210024:web:1ca59271fb6b9327dde65d"
-}
+};
+
 // Initialize Firebase
-const firebaseApp = firebase.initializeApp(firebaseConfig);
-const database = firebaseApp.database();
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
 
 // Function to submit a suggestion
 function submitSuggestion() {
@@ -54,4 +56,3 @@ function handleKeyPress(event) {
 document.getElementById('submitBtn').addEventListener('click', submitSuggestion);
 document.getElementById('showBtn').addEventListener('click', showAllSuggestions);
 document.getElementById('suggestion').addEventListener('keypress', handleKeyPress);
-
