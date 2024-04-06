@@ -1,12 +1,12 @@
 // Initialize Firebase
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_AUTH_DOMAIN",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_STORAGE_BUCKET",
-    databaseURL: "YOUR_DATABASE_URL",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyBwf8QvoCea5zKAt7brg4WR-lqRBOTnIzs",
+    authDomain: "emmett-s-podcast-thing.firebaseapp.com",
+    projectId: "emmett-s-podcast-thing",
+    storageBucket: "emmett-s-podcast-thing.appspot.com",
+    databaseURL: "https://emmett-s-podcast-thing-default-rtdb.firebaseio.com",
+    messagingSenderId: "16094210024",
+    appId: "1:16094210024:web:1ca59271fb6b9327dde65d"
 };
 
 firebase.initializeApp(firebaseConfig);
