@@ -42,3 +42,9 @@ function showAllSuggestions() {
         }
     });
 }
+
+function handleKeyPress(event) {
+    if (event.key === 'Enter') {
+        submitSuggestion();
+    }
+}
