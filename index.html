@@ -14,8 +14,58 @@
         <button onclick="showAllSuggestions()">Show All Suggestions</button>
         <div id="suggestions"></div>
     </div>
-    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js"></script>
-    <script src="script.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
+        import { getDatabase, ref, push, set, onValue } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js";
+
+        // Your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBwf8QvoCea5zKAt7brg4WR-lqRBOTnIzs",
+            authDomain: "emmett-s-podcast-thing.firebaseapp.com",
+            projectId: "emmett-s-podcast-thing",
+            storageBucket: "emmett-s-podcast-thing.appspot.com",
+            databaseURL: "https://emmett-s-podcast-thing-default-rtdb.firebaseio.com",
+            messagingSenderId: "16094210024",
+            appId: "1:16094210024:web:1ca59271fb6b9327dde65d"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        function submitSuggestion() {
+            const suggestion = document.getElementById('suggestion').value.trim();
+            if (suggestion !== '') {
+                set(ref(database, 'suggestions'), { suggestion: suggestion });
+                document.getElementById('suggestion').value = '';
+                alert('Suggestion submitted successfully!');
+            } else {
+                alert('Please enter a suggestion before submitting.');
+            }
+        }
+
+        function showAllSuggestions() {
+            const suggestionsDiv = document.getElementById('suggestions');
+            suggestionsDiv.innerHTML = '';
+            onValue(ref(database, 'suggestions'), (snapshot) => {
+                const data = snapshot.val();
+                if (data) {
+                    Object.values(data).forEach(suggestion => {
+                        const suggestionElement = document.createElement('p');
+                        suggestionElement.textContent = suggestion.suggestion;
+                        suggestionsDiv.appendChild(suggestionElement);
+                    });
+                } else {
+                    suggestionsDiv.textContent = 'No suggestions available.';
+                }
+            });
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                submitSuggestion();
+            }
+        }
+    </script>
 </body>
 </html>
