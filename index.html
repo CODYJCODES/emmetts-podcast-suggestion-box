@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <h1>Emmett's Podcast Suggestion Box</h1>
-        <textarea id="suggestion" placeholder="Enter your suggestion"></textarea>
+        <textarea id="suggestion" placeholder="Enter your suggestion" onkeypress="handleKeyPress(event)"></textarea>
         <button onclick="submitSuggestion()">Submit</button>
         <button onclick="showAllSuggestions()">Show All Suggestions</button>
         <div id="suggestions"></div>
